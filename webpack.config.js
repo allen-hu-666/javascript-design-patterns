@@ -10,18 +10,16 @@ module.exports = {
     filename: 'build.js'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: [
-          'vue-style-loader',
           'css-loader'
         ],
       },
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader',
+          'style-loader',
           'css-loader',
           'sass-loader'
         ],
@@ -67,14 +65,27 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      },{
+      }, {
         test: /\.ejs$/,
         loader: 'ejs-loader'
+      }, {
+        test: /\.md$/,
+        use: [{
+            loader: "html-loader"
+          },
+          {
+            loader: "markdown-loader",
+            options: {
+              /* your options here */
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [new HtmlWebpackPlugin({
     title: '按照ejs模板生成出来的页面',
+    hash: true,
     filename: 'index.html',
     template: 'src/index.ejs',
   })],
@@ -82,14 +93,14 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['*', '.js', '.vue', '.json', '.ejs', '.md']
   },
   devServer: {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
     inline: true,
-    hot: true,
+    hot: false,
     contentBase: './'
   },
   performance: {

@@ -1,4 +1,28 @@
 <div>
-    测试ejsasdaaasdsasad
-    <%= require('./config.js')() %>
+    <div id="left-tab-list-content">
+        <div class="list-group">
+            <% require('./config.js').forEach(function(item){%>
+                <a 
+                    href="#<%= item.id %>"
+                    id="<%= item.id %>-nav-tab"
+                    onclick="switchNavTab('<%= item.id %>')"
+                    class="list-group-item list-group-item-action"
+                >
+                    <%= item.name %>
+                </a>
+            <% }) %>
+        </div>
+    </div>
+    <div id="main-content">
+        <% require('./config.js').forEach(function(item){%>
+            <div 
+                id="<%= item.id %>"
+            >
+                <%= item.rander() %>
+            </div>
+        <% }) %>
+        <div style="height: 500px;">
+            
+        </div>
+    </div>
 </div>

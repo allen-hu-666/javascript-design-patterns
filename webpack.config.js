@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require("copy-webpack-plugin");
+const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -83,12 +85,21 @@ module.exports = {
       }
     ]
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: '按照ejs模板生成出来的页面',
-    hash: true,
-    filename: 'index.html',
-    template: 'src/index.ejs',
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: '按照ejs模板生成出来的页面',
+      hash: true,
+      minify:{
+        removeAttributeQuotes:true
+      },
+      filename: 'index.html',
+      template: 'src/index.ejs',
+    }),
+    new CopyWebpackPlugin([{
+      from:'./src/assets',
+      to: 'assets'
+    }])
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
@@ -97,7 +108,6 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true,
     overlay: true,
     inline: true,
     hot: false,

@@ -1,28 +1,24 @@
 <div>
-    <div id="left-tab-list-content">
-        <div class="list-group">
+    <div id="left-tab-list-content" style="width: 150px;position: fixed;height: 100%;padding: 10px;">
+        <ul style="list-style:none;margin: 0;padding: 0;">
             <% require('./config.js').forEach(function(item){%>
-                <a 
-                    href="#<%= item.id %>"
-                    id="<%= item.id %>-nav-tab"
-                    onclick="switchNavTab('<%= item.id %>')"
-                    class="list-group-item list-group-item-action"
-                >
-                    <%= item.name %>
-                </a>
+                <li id="<%= item.id %>-nav-tab" class="tab-item">
+                    <a  href="#<%= item.id %>" onclick="switchNavTab('<%= item.id %>')">
+                        <%= item.name %>
+                    </a>
+                </li>
             <% }) %>
-        </div>
+        </ul>
     </div>
-    <div id="main-content">
+    <div id="main-content" style="padding-left: 180px;">
         <% require('./config.js').forEach(function(item){%>
             <div 
                 id="<%= item.id %>"
             >
                 <%= item.rander() %>
             </div>
+            <div class="article-hr">
+            </div>
         <% }) %>
-        <div style="height: 500px;">
-            
-        </div>
     </div>
 </div>

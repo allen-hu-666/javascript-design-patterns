@@ -2,7 +2,7 @@ module.exports = [
     {
         name: '概述',
         id: 'overview',
-        rander: require('./overview.ejs')
+        rander: require('../pages/overview/index.ejs')
     },{
         name: '单例模式',
         id: 'singleton-pattern',

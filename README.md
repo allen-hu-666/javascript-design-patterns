@@ -41,7 +41,7 @@
 
     module.exports = login;
 ```
-聪明的人相信已经发现了问题：'login.service.js'依赖了'save-login-data.js'    
+相信有的同学已经发现了问题：'login.service.js'依赖了'save-login-data.js'    
 假如这时候新的需求来了：登陆成功后还要把登陆信息更新到显示模块user-info.component.js，显示登陆的用户信息
 如果继续按上面这种方法做的话，这时候'login.service.js'又依赖了'user-info.component.js'  
 并且随着需求越来越多，'login.service.js'依赖的模块也越来越多，每增加一次需求都要修改login.service.js    
@@ -58,7 +58,7 @@
     }
 
     // 执行所有回掉函数
-    function _dispatch(data) {
+    function emit(data) {
         for(var i=0,l=_events.length;i<l;i++){
             _events[i](data)
         }
@@ -67,7 +67,7 @@
     function login() {
         fetch('http://example.com/login').then(function(response) {
             var resData = response.json();
-            _dispatch(resData);
+            emit(resData);
         });
     }
 
